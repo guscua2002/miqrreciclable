@@ -44,7 +44,7 @@ const Registro = () => {
       setErrores({ confirmPassword: 'Las contraseñas no coinciden' });
       return;
     }
-    axios.post('http://localhost:8000/api/user/register', {
+    axios.post('/api/user/register', {
       email, password, confirmPassword,
     }, { withCredentials: true })
       .then((res) => {

@@ -30,7 +30,7 @@ const Login = () => {
       setErrores({ password: 'No debe estar vacio, mayor a 5 y menor a 10 ' });
       return;
     }
-    axios.post('http://localhost:8000/api/user/login', {
+    axios.post('/api/user/login', {
       email, password}, { withCredentials: true }
     )
       .then((res) => {
