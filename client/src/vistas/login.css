@@ -1,0 +1,48 @@
+.fa {
+    font-size: 120%;
+}
+
+.user {
+
+    font-size: 500%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.bg {
+    background-color: rgb(236, 234, 234);
+}
+
+.buttonLogin {
+    background-color: rgb(247, 248, 248);
+    color: black;
+    width: 100%;
+
+}
+
+.error {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;   
+}
+
+.titulo{
+    font-family: 'QR', sans-serif;  
+}
+
+.content {
+    position: relative;
+  }
+  
+  .title {
+    position: absolute;
+    top: 9%;
+    left: 9.5%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+  }

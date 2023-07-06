@@ -1,0 +1,345 @@
+.container {
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+}
+
+.tablecontainer {
+    margin: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    /* Habilita el desplazamiento vertical si los datos exceden el contenedor */
+    max-height: 400px;
+
+}
+
+
+.header {
+    background-color: #2170e5;
+    color: #fff;
+    font-weight: bold;
+}
+
+.header div {
+    display: flex;
+}
+
+.header p {
+    margin-left: 3rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.header h1 {
+    margin-top: 0;
+    margin-left: 4rem;
+    font-family: 'QR', sans-serif;
+}
+
+.tablecontainer table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #eaf2ff;
+
+}
+
+.tablecontainer th {
+    border: 1px solid #ccc;
+    padding: 8px;
+    background-color: #2170e5;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tablecontainer td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    background-color: #eaf2ff;
+}
+
+.tablecontainer tr:nth-child(even) {
+    background-color: #dfe8ff;
+}
+
+.tablecontainer th:hover,
+.tablecontainer td:hover {
+    background-color: #c6d9ff;
+}
+
+
+.filterbar {
+    background-color: #f1f1f1;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+
+.filterbydate label,
+.filterbydescription label {
+    margin-right: 10px;
+}
+
+/* Estilos anteriores */
+
+.createqrbutton {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.createqrbutton:hover {
+    background-color: #45a049;
+}
+
+@media only screen and (max-width: 1315px) {
+    .tablecontainer table {
+        font-size: 10px;
+    }
+
+    .tablecontainer th,
+    .tablecontainer td {
+        padding: 6px;
+    }
+
+    .filterbydescription input {
+        width: 220% !important;
+    }
+}
+
+@media only screen and (max-width: 1227px) {
+    .filterbar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+}
+
+@media only screen and (max-width: 1102px) {
+    .filterbar {
+
+        display: flex;
+        flex-direction: column;
+        align-items: baseline !important;
+    }
+
+    .fitrarqrbutton {
+
+        font-size: 10px !important;
+
+    }
+
+    .createqrbutton {
+
+        font-size: 10px !important;
+    }
+
+    .filterbydescription input {
+        font-size: 10px !important;
+    }
+
+    .filterbar p {
+        font-size: 10px !important;
+    }
+
+    .datePick {
+        font-size: 10px !important;
+    }
+}
+
+
+@media only screen and (max-width: 890px) {
+    .tablecontainer table {
+        font-size: 8px;
+    }
+
+    .header h1 {
+        margin-top: 0;
+        margin-left: 4rem;
+        font-family: 'QR', sans-serif;
+        font-size: 1rem !important;
+        margin-top: 7px;
+    }
+
+    .header p {
+        margin-left: 2rem;
+    }
+
+    .tablecontainer th,
+    .tablecontainer td {
+        padding: 2px;
+    }
+}
+
+
+
+@media only screen and (max-width: 650px) {
+    .tablecontainer table {
+        font-size: 6px;
+    }
+
+    .header h1 {
+        margin-top: 0;
+        margin-left: 3rem;
+        font-family: 'QR', sans-serif;
+        font-size: 1rem !important;
+        margin-top: 7px;
+    }
+
+    .header p {
+        font-size: 10px;
+    }
+
+    .tablecontainer th,
+    .tablecontainer td {
+        padding: 2px;
+    }
+
+    .createqrbutton {
+
+        font-size: 7px !important;
+    }
+
+    .filterbydescription input {
+        font-size: 7px !important;
+    }
+
+    .filterbar p {
+        font-size: 9px !important;
+    }
+
+    .datePick {
+        font-size: 9px !important;
+    }
+}
+
+@media only screen and (max-width: 515px) {
+    .tablecontainer table {
+        font-size: 6px;
+    }
+
+    .header h1 {
+        margin-top: 0;
+        margin-left: 3rem;
+        font-family: 'QR', sans-serif;
+        font-size: 10px !important;
+        margin-top: 7px;
+    }
+
+    .header p {
+        font-size: 8px;
+    }
+
+    .tablecontainer th,
+    .tablecontainer td {
+        padding: 0px;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .tablecontainer {
+        margin: 10px;
+        padding: 10px;
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    }
+
+}
+
+@media only screen and (max-width: 440px) {
+    .tablecontainer {
+        margin: 5px;
+        padding: 5px;
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .tablecontainer table {
+        font-size: 5px;
+    }
+
+
+}
+
+.datePick {
+    margin-right: 20px;
+    width: 6rem;
+}
+
+.filterbydate div:first-child {
+    display: flex;
+}
+
+.fitrarqrbutton {
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 25%;
+    cursor: pointer;
+}
+
+.fitrarqrbutton:hover {
+    background-color: rgb(30, 30, 250);
+}
+
+.filterbydescription input {
+    width: 250%;
+}
+
+.counter {
+    text-align: center;
+}
+
+.img {
+    text-align: center;
+    cursor: pointer;
+}
+
+.updateview {
+    display: flex;
+}
+
+.updateview button {
+    margin-left: 1.5rem;
+    background-color: #2170e5;
+    color: white;
+    border: 1px solid black;
+}
+
+
+.logout {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 2%;
+  }
+  
+  .logout:hover {
+    background-color: rgb(233, 103, 103);
+}

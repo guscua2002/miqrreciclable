@@ -1,0 +1,26 @@
+html,
+body,
+.mainContainer{    
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: auto;  
+    overflow: hidden;
+    background-image: linear-gradient(to right, rgb(45, 45, 65) 20%, #f1f1f1 20%);
+   
+}
+
+.content {
+    position: relative;
+  }
+  
+  .title {
+    position: absolute;
+    top: 9%;
+    left: 9.5%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+  }
+  
