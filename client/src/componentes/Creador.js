@@ -28,6 +28,7 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
   const [datecreate, setDatecreate] = useState(new Date())
   const [qrstring, setQrString] = useState("");
   const [change, setChange] = useState(0);
+  const [guardando, setGuardando] = useState(false);
 
 
   const infoQr = {
@@ -78,6 +79,7 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
 
   const update = async () => {
     try {
+      setGuardando(true);
       const data = await updateUser(idUser, infoQr);      
       listUpdate.current = SortDate(data.data.result.qrcode);
       handleUpdateList(listUpdate.current);
@@ -92,6 +94,8 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
     } catch (error) {
       console.log(error)
       HandleError(error);
+    }finally{
+      setGuardando(false);
     }
   };
 
@@ -136,8 +140,12 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
         </div >
         <div className={styles.buttoncontainer}>
           <button onClick={() => validaForm()}>Guardar</button>
-          <button onClick={closeModal}>Cerrar</button>
+          <button onClick={closeModal}>Cerrar</button>         
         </div>
+        {guardando && (
+                   <label>Guardando...</label>
+        )  
+        }     
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { correctMessageActualizado } from "../utils/AlertMessages";
 import HandleError from "../services/HandleError"
 import { ValidatorForm } from "../services/ValidatorForm";
-import { qrEsquema } from "../utils/ValidaForm";
+import { qrEsquemaUpdate } from "../utils/ValidaForm";
 import { SortDate } from "../utils/SortDate";
 import { updateUserQR } from "../services/services";
 
@@ -24,6 +24,7 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
   const [counter, setcounter] = useState(counterTemp);
   let listUpdate = useRef("");
   let codigoQR = useRef(qrstringTemp);
+  const [guardando, setGuardando] = useState(false);
  
   const infoQr = {
     urlredirect,
@@ -38,6 +39,7 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
 
   const update = async () => {
     try {
+      setGuardando(true);
       const data = await updateUserQR(idUser, infoQr); 
       listUpdate.current = SortDate(data.data.result.qrcode);
       handleUpdateList(listUpdate.current);
@@ -50,11 +52,13 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
       closeModalActualizador();
     } catch (error) {
       HandleError(error);
+    }finally{
+      setGuardando(false);
     }
   };
 
   const validaForm = () => {
-    ValidatorForm(qrEsquema, infoQr, update);
+    ValidatorForm(qrEsquemaUpdate, infoQr, update);
   };
  
 
@@ -97,6 +101,10 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
           <button onClick={() => validaForm()}>Guardar</button>
           <button onClick={closeModalActualizador}>Cerrar</button>
         </div>
+        {guardando && (
+                   <label>Guardando...</label>
+        )  
+        }    
       </div>
     </div>
   );

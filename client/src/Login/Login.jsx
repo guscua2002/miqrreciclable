@@ -41,12 +41,6 @@ const Login = () => {
         console.log(id,email)
         navigate('/home', { state: { id, email } });
 
-
-
-
-
-
-
         // Mostrar la alerta SweetAlert2
            swal({
             title: "Inicio de sesión exitoso",
@@ -55,8 +49,7 @@ const Login = () => {
             icon: "success"  
         });
       }).catch((error) => {
-        console.log(error)
-        HandleError(error);
+         HandleError(error);
       })
 
   }

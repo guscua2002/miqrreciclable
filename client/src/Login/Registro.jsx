@@ -60,7 +60,7 @@ const Registro = () => {
         });
 
       }).catch((error) => {
-        HandleError(error);
+          HandleError(error);
       })
 
   }
