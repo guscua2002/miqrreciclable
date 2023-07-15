@@ -12,7 +12,7 @@ import { SortDate } from "../utils/SortDate";
 
 const Creador = ({ closeModal, idUser, handleUpdateList }) => {
 
- const urlApi = useRef("http://3.145.168.47/api/qr/");    
+ const urlApi = useRef("http://localhost:8000/api/qr/");    
   
   let idNewQr = useRef(0);
   let url = useRef(""); 
@@ -59,8 +59,7 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
       HandleError(error);
     }    
   }
-
-
+  
   const generateQRCode = async () => {
     url.current = urlApi.current + idUser + idNewQr.current;
     try {      
@@ -91,6 +90,7 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
       setChange(idNewQr.current)
       correctMessage();
     } catch (error) {
+      console.log(error)
       HandleError(error);
     }
   };
@@ -111,23 +111,23 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
           </div>
         </div>
         <div className={styles.formfield}>
-          <label>URL de Inicio:</label>
+          <label>URL de Inicio: (obligatorio)</label>
           <input onChange={(e) => setUrlRedirect(e.target.value)} type="text" placeholder="https://www.yahoo.com" value={urlredirect}/>
         </div>
         <div className={styles.formfield}>
-          <label>Descripción Uno:</label>
+          <label>Descripción Uno: (opcional)</label>
           <input onChange={(e) => setDescription1(e.target.value)} type="text" placeholder="ej: Nombre de la tienda" value={description1}/>
         </div>
         <div className={styles.formfield}>
-          <label >Descripción Dos:</label>
+          <label >Descripción Dos: (opcional)</label>
           <input onChange={(e) => setDescription2(e.target.value)} type="text" placeholder="ej: Campaña" value={description2} />
         </div>
         <div className={styles.formfield}>
-          <label >Descripción Tres:</label>
+          <label >Descripción Tres: (opcional)</label>
           <input onChange={(e) => setDescription3(e.target.value)} type="text" placeholder="ej: Comuna" value={description3}/>
         </div>
         <div className={styles.formfield}>
-          <label >Descripción Cuatro:</label>
+          <label >Descripción Cuatro: (opcional)</label>
           <input onChange={(e) => setDescription4(e.target.value)} type="text" placeholder="ej: Promoción" value={description4} />
         </div>
         <div className={styles.formfield}>

@@ -49,7 +49,6 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
       correctMessageActualizado();   
       closeModalActualizador();
     } catch (error) {
-       console.log(error)
       HandleError(error);
     }
   };
@@ -71,23 +70,23 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
           </div>
         </div>
         <div className={styles.formfield}>
-          <label>URL de Inicio:</label>
+          <label>URL de Redirección: (obligatorio)</label>
           <input onChange={(e) => setUrlRedirect(e.target.value)} type="text" placeholder="https://www.yahoo.com" value={urlredirect}/>
         </div>
         <div className={styles.formfield}>
-          <label>Descripción Uno:</label>
+          <label>Descripción Uno: (opcional)</label>
           <input onChange={(e) => setDescription1(e.target.value)} type="text" placeholder="ej: Nombre de la tienda" value={description1}/>
         </div>
         <div className={styles.formfield}>
-          <label >Descripción Dos:</label>
+          <label >Descripción Dos: (opcional)</label>
           <input onChange={(e) => setDescription2(e.target.value)} type="text" placeholder="ej: Campaña" value={description2} />
         </div>
         <div className={styles.formfield}>
-          <label >Descripción Tres:</label>
+          <label >Descripción Tres: (opcional)</label>
           <input onChange={(e) => setDescription3(e.target.value)} type="text" placeholder="ej: Comuna" value={description3}/>
         </div>
         <div className={styles.formfield}>
-          <label >Descripción Cuatro:</label>
+          <label >Descripción Cuatro: (opcional)</label>
           <input onChange={(e) => setDescription4(e.target.value)} type="text" placeholder="ej: Promoción" value={description4} />
         </div>
         <div className={styles.formfield}>

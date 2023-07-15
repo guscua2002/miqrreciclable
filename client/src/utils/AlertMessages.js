@@ -26,10 +26,21 @@ export const correctMessageActualizado = () =>{
 
 export const searchErrorMessage = () =>{
   swal({
-      title: "No hay resultados o debe ingresar búsqueda",
+      title: "No hay resultados o debe ingresar fecha, fechas o descripción",
       text: "Sin éxito",
       button: "Aceptar",
       icon: "warning"
+    })
+    
+    return;
+}   
+
+export const searchSuccess = () =>{
+  swal({
+      title: "Búsqueda exitosa",
+      text: "éxito",
+      button: "Aceptar",
+      icon: "success"
     })
     
     return;

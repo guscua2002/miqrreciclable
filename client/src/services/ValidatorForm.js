@@ -6,6 +6,7 @@ export const ValidatorForm = (Schema, info, handler) => {
       handler();
     })
     .catch((error) => {
+      console.log(error)
         if (error.message.message) {
         errorMessage(error.message.message);
       } else {
