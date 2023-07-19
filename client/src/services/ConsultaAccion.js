@@ -3,18 +3,18 @@ import Swal from 'sweetalert2';
 export const ConsultaAccion = (handler, title, text) => {
   Swal.fire({
     title: title,
-    showDenyButton: true,
+    text: text,
+    icon: "warning",
+    color: "red",
     showCancelButton: true,
-    confirmButtonText: 'Sí',
-    denyButtonText: `No`,
+    confirmButtonText: "Sí",
+    cancelButtonText: "No",
+    focusCancel: true,
   }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       handler();
-    } else if (result.isDenied) {
-      Swal.fire("No se eliminó QR")
     }
-  })
+  });
   }
 
   

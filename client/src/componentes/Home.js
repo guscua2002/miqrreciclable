@@ -118,6 +118,7 @@ function Home() {
     }
 
     const handlerDeleteQR = (id) => {
+        console.log("hola")
         idqr.current = id;
         ConsultaAccion(eliminarQR, text1, text2);
     }
