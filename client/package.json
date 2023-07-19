@@ -19,6 +19,7 @@
     "react-scripts": "5.0.1",
     "react-tooltip": "^5.18.0",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.18",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },

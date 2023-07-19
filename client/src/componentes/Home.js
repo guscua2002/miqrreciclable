@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import Creador from "../componentes/Creador";
-import styles from "../styles/Home.module.css"
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getOneUser, deleteUserQR,userLogout } from "../services/services";
@@ -230,13 +229,13 @@ function Home() {
         }
     }
 
-
+    
     return (
         <div className="bg-white min-h-screen min-w-full max-w-full">
             <header className="bg-blue-500 text-white font-bold">
                 <div className="flex flex-col md:flex-row justify-between items-center">
                     <h1 className="ml-2 md:ml-4 font-QR text-base md:text-lg font-QR" style={{ fontFamily: "'QR', sans-serif" }}>
-                        QR dynamic Manager
+                        QR Reciclable Manager
                     </h1>
                     <div className="ml-2 md:ml-6 font-sans text-xs md:text-base">
                         Tu solución inteligente para administrar y potenciar tus códigos QR.
@@ -250,7 +249,7 @@ function Home() {
                 <div className="bg-gray-200 py-4 md:py-6 px-4 md:px-8 flex flex-col md:flex-row items-center justify-between">
                     <div className="flex flex-col md:flex-row items-center mb-2 md:mb-0">
                         <a data-tooltip-id="my-tooltip" data-tooltip-content="Filtrar por fecha o rangos de fechas">
-                            <p className="mr-2 md:mr-4 text-xs md:text-base">Filtrar por fecha(s):</p>
+                            <p className="mr-2 md:mr-4 font-bold text-gray-900 text-xs md:text-base">Filtrar por fecha(s):</p>
                         </a>
                         <div className="flex">
                             <div className="mr-2 flex justify-center">
@@ -272,7 +271,7 @@ function Home() {
                         </div>
                     </div>
                     <div className="flex flex-col md:flex-row items-center mb-2 md:mb-0">
-                        <p className="mr-2 md:mr-4 text-xs md:text-base">Por descripción:</p>
+                        <p className="mr-2 md:mr-4 font-bold text-gray-900 text-xs md:text-base">Por descripción:</p>
                         <div className="flex items-center">
                             <div className="flex items-center">
                                 <div className="mr-2 bg-blue-500 rounded-full p-1 flex items-center justify-center w-7 h-7">
@@ -294,7 +293,9 @@ function Home() {
                             <a data-tooltip-id="my-tooltip" data-tooltip-content="Aplica el filtrado por fecha o por descripción">
                                 <button onClick={() => filtrar()} className="ml-2 py-2 px-2 md:px-4 bg-blue-500 rounded text-xs md:text-base text-white">Filtrar</button>
                             </a>
+                            <a data-tooltip-id="my-tooltip" data-tooltip-content="Carga formulario para crear codigo QR">
                             <button onClick={() => setIsOpen(true)} className="ml-2 py-2 px-2 md:px-3 bg-green-500 rounded text-xs md:text-base text-white">Crear QR</button>
+                            </a>
                             {isOpen && (
                                 <Creador closeModal={closeModal} idUser={idUser.current} handleUpdateList={handleUpdateList} />
                             )}

@@ -1,0 +1,233 @@
+.container {
+    
+    width: auto;
+    height: 100vh;
+    background-color: whitesmoke;
+    margin: 0;
+    padding: 0;
+    display: flex; 
+    flex-direction: column;   
+    max-width: 100%;
+}
+
+/*.header:first-child {
+    grid-column-start: 1;
+    grid-column-end: -1;
+   
+}*/
+
+.header{
+
+    display: flex;
+    justify-content: space-around ;
+    height: 30%;
+    background-color: rgb(255, 102, 0);
+   
+    
+}
+
+.imagenTienda {
+
+    width: 9rem;
+    margin-top: 20px;  
+    border: 1px solid black;
+}
+
+.title {
+
+    margin-top: 6%;
+    font-size: 4rem;
+    font-family: "Courier New", monospace;
+    font-style:oblique;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: Rgb(220,220,220);
+}
+
+.imagenLogin {
+    width: 9rem;
+    margin-top: 30px;
+    margin-left: 30px;
+    cursor: pointer;
+
+}
+
+.content{
+
+   display: flex;
+   width: 100vw;
+   height: 80%;
+ 
+   
+}
+
+.formulario {
+
+    display: grid;
+    width: 40rem;
+    height: 60%;
+    gap: 5px;
+    justify-content: center;
+    background-color: Rgb(220,220,220);
+    border: 1px solid black;
+    margin-left: 60px;
+    margin-top: 10px;
+    border-radius: 10px;
+    color: black;
+   
+  
+
+}
+
+.formulario div {
+
+    display: flex;
+    width: 100%;
+    height: 30px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 30px;
+
+}
+
+.formulario input {
+
+    border: 1px solid black;
+    width: 300px;
+    border-radius: 5px;
+}
+
+
+.containerSubmit {
+    display: flex;
+    justify-content: center !important;
+}
+
+
+.btn {
+
+    background-color: white !important;
+    margin-bottom: 30px;
+    color: black !important;
+    border: 1px solid black !important;
+}
+
+.btnLogin {
+
+    background-color: white !important;
+    margin-bottom: 30px;
+    color: black !important;
+    border: 1px solid black !important;
+}
+
+
+.containerForm h5 {
+
+    font-family: "Courier New", monospace;
+
+}
+
+
+.container h6 {
+
+    font-family: Cambria,Georgia,serif; 
+    margin-left: 5%;
+    line-height: 1.3rem;
+    width: 60%;
+    margin: 3%;
+}
+
+.sideLeft {
+
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 20%;
+    background-color: Rgb(220,220,220)
+    
+
+}
+
+.containerFormLogin {
+
+    display: grid;
+    justify-content: start;
+}
+
+.card{
+
+    margin-top: 3%;
+    
+}
+
+/*@media (min-width:992px) and (max-width:1200px) {
+    .content{
+        flex-direction: column;  
+        align-items: center;      
+     }
+     .sideLeft{
+        width: 90%;
+     }
+
+}
+
+@media (min-width:768px) and (max-width:992px) {
+    .content{
+        justify-content: center;      
+     }
+    .sideLeft{
+        display: none;
+     }
+     .imagenTienda {
+        display:none;
+    } 
+    .imagenLogin{
+        width: 2rem;
+    }
+}
+
+@media (min-width:576px) and (max-width:768px) {
+    .content{
+        align-items: center;
+    }
+    .title{
+        font-size: 3rem;
+    }
+    .sideLeft{
+        display: none;
+     }
+     .imagenTienda {
+        display:none;
+    } 
+    .imagenLogin{
+        width: 1rem;
+    }
+
+}
+
+@media (min-width:320px) and (max-width:576px) {
+    .content{
+        align-items: center;
+    }
+    .title{
+        font-size: 3rem;
+    }
+    .sideLeft{
+        display: none;
+     }
+     .imagenTienda {
+        display:none;
+    } 
+    .imagenLogin{
+        width: 1rem;
+    }
+    .formulario{
+
+        width: 28rem;
+    }
+}*/
+
+
+
+

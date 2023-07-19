@@ -12,7 +12,7 @@ export const updateUserQR = (id, task) => axios.put(`http://localhost:8000/api/q
 
 export const deleteUserQR = (id, task) => axios.put(`http://localhost:8000/api/qr/delete/${id}`, task,{withCredentials: true}); 
 
-export const userRegister = (userInfo) => axios.post('http://localhost:8000/api/user/register', userInfo,{withCredentials: true});
+export const userRegister = (userInfo) => axios.post('http://localhost:8000/api/user/register', userInfo);
 
 export const userLogin = (userInfo) => axios.post('http://localhost:8000/api/user/login', userInfo,{withCredentials: true});
 

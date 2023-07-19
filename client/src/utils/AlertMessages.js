@@ -1,11 +1,13 @@
 import swal from "sweetalert";
+import Swal from 'sweetalert2'
+
 
 // distintos mensajes que se invocan dentro del programa
 
 export const correctMessage = () =>{
         swal({
-            title: "Qr Guardado",
-            text: "Con exito",
+            title: "Qr Guardado con éxito",
+            text: "Ahora puedes seguir generando más",
             button: "Aceptar",
             icon: "success"
           })
@@ -14,12 +16,13 @@ export const correctMessage = () =>{
 }   
 
 export const correctMessageActualizado = () =>{
-  swal({
-      title: "Qr Actualizado",
-      text: "Con exito",
-      button: "Aceptar",
-      icon: "success"
-    })
+  Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: 'Tu codigo QR ha sido actualizado',
+    showConfirmButton: false,
+    timer: 1500
+  })
     
     return;
 }   
@@ -29,7 +32,7 @@ export const searchErrorMessage = () =>{
       title: "No hay resultados o debe ingresar fecha, fechas o descripción",
       text: "Sin éxito",
       button: "Aceptar",
-      icon: "warning"
+      icon: "info"
     })
     
     return;
@@ -45,7 +48,6 @@ export const searchSuccess = () =>{
     
     return;
 }   
-
 
 
 export const errorMessage = (error) =>{
@@ -89,12 +91,22 @@ export const mensajePassword = () =>{
 }
 
 export const mensajeSuccess = () =>{
-  swal({
-      title: "Login exitoso",
-      text: "Bienvenido",
-      button: "Aceptar",
-      icon: "success"
-    })
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+  
+  Toast.fire({
+    icon: 'success',
+    title: 'Login exitoso, Bienvenido'
+  })
 }
 
 export const updateMessagePassword = () =>{
@@ -167,6 +179,18 @@ export const messageExit = () =>{
       icon: "success"
     })
 }
+
+export const correctRegister = () =>{
+
+  swal({
+      title: "Registro exitoso",
+      text: "Bienvenido",
+      button: "Aceptar",
+      icon: "success"
+    })
+}
+
+
 
 
 

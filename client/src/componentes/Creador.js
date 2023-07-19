@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../styles/Creador.module.css"
 import { useRef, useEffect, useState } from "react";
 import QRCode from 'qrcode';
-import { updateUser,getOneUser } from "../services/services";
+import { updateUser, getOneUser } from "../services/services";
 import { correctMessage } from "../utils/AlertMessages";
 import HandleError from "../services/HandleError"
 import { ValidatorForm } from "../services/ValidatorForm";
@@ -12,10 +12,10 @@ import { SortDate } from "../utils/SortDate";
 
 const Creador = ({ closeModal, idUser, handleUpdateList }) => {
 
- const urlApi = useRef("http://localhost:8000/api/qr/");    
-  
+  const urlApi = useRef("http://localhost:8000/api/qr/");
+
   let idNewQr = useRef(0);
-  let url = useRef(""); 
+  let url = useRef("");
   let codigoQR = useRef();
   let listUpdate = useRef("");
 
@@ -42,28 +42,28 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
     datecreate,
   }
 
-  const searchQrId = async () =>{
+  const searchQrId = async () => {
     try {
       const data = await getOneUser(idUser);
-      const qrSelected = data.data.user.qrcode;  
-                    
-      if(qrSelected.length !== 0){
-        
-        const lastQrSelected = qrSelected[qrSelected.length - 1];       
-        idNewQr.current = lastQrSelected.idqr + 1;        
-      }else{
+      const qrSelected = data.data.user.qrcode;
+
+      if (qrSelected.length !== 0) {
+
+        const lastQrSelected = qrSelected[qrSelected.length - 1];
+        idNewQr.current = lastQrSelected.idqr + 1;
+      } else {
         idNewQr.current = 1;
       }
       setIdQr(idNewQr.current);
       generateQRCode();
     } catch (error) {
       HandleError(error);
-    }    
+    }
   }
-  
+
   const generateQRCode = async () => {
     url.current = urlApi.current + idUser + idNewQr.current;
-    try {      
+    try {
       codigoQR.current = await QRCode.toString("", url.current, { width: 75, height: 75 });
       setQrString(codigoQR.current)
     } catch (error) {
@@ -72,15 +72,15 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
   };
 
   useEffect(() => {
-    
-    searchQrId();   
+
+    searchQrId();
 
   }, [change]);
 
   const update = async () => {
     try {
       setGuardando(true);
-      const data = await updateUser(idUser, infoQr);      
+      const data = await updateUser(idUser, infoQr);
       listUpdate.current = SortDate(data.data.result.qrcode);
       handleUpdateList(listUpdate.current);
       setDescription1("");
@@ -94,7 +94,7 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
     } catch (error) {
       console.log(error)
       HandleError(error);
-    }finally{
+    } finally {
       setGuardando(false);
     }
   };
@@ -116,11 +116,11 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
         </div>
         <div className={styles.formfield}>
           <label>URL de Inicio: (obligatorio)</label>
-          <input onChange={(e) => setUrlRedirect(e.target.value)} type="text" placeholder="https://www.yahoo.com" value={urlredirect}/>
+          <input onChange={(e) => setUrlRedirect(e.target.value)} type="text" placeholder="https://www.yahoo.com" value={urlredirect} />
         </div>
         <div className={styles.formfield}>
           <label>Descripción Uno: (opcional)</label>
-          <input onChange={(e) => setDescription1(e.target.value)} type="text" placeholder="ej: Nombre de la tienda" value={description1}/>
+          <input onChange={(e) => setDescription1(e.target.value)} type="text" placeholder="ej: Nombre de la tienda" value={description1} />
         </div>
         <div className={styles.formfield}>
           <label >Descripción Dos: (opcional)</label>
@@ -128,7 +128,7 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
         </div>
         <div className={styles.formfield}>
           <label >Descripción Tres: (opcional)</label>
-          <input onChange={(e) => setDescription3(e.target.value)} type="text" placeholder="ej: Comuna" value={description3}/>
+          <input onChange={(e) => setDescription3(e.target.value)} type="text" placeholder="ej: Comuna" value={description3} />
         </div>
         <div className={styles.formfield}>
           <label >Descripción Cuatro: (opcional)</label>
@@ -136,16 +136,16 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
         </div>
         <div className={styles.formfield}>
           <label >Fecha de Creación:</label>
-            <input type="text" value={datecreate} disabled />
+          <input type="text" value={datecreate} disabled />
         </div >
         <div className={styles.buttoncontainer}>
           <button onClick={() => validaForm()}>Guardar</button>
-          <button onClick={closeModal}>Cerrar</button>         
+          <button onClick={closeModal}>Cerrar</button>
         </div>
         {guardando && (
-                   <label>Guardando...</label>
-        )  
-        }     
+          <label>Guardando...</label>
+        )
+        }
       </div>
     </div>
   );
