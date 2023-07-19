@@ -10,7 +10,8 @@ const urelImageMessage = "Debes ingresar una Url válida"
 
 export const userSchema = yup.object().shape({
 
-  email: yup.string().typeError(emailMessage).matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-.]+$/, { message: emailMessage }).required({ message: emailMessage }),
+  email: yup.string().typeError(emailMessage).matches(/^(?!\s)[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-.]+$/
+  , { message: emailMessage }).required({ message: emailMessage }),
   password: yup.string().typeError(passwordMessage).min(5, { message: passwordMessage }).max(10, { message: passwordMessage }).matches(/^\w/, { message: passwordMessage }).required({ message: passwordMessage })
 });
 
@@ -22,7 +23,8 @@ export const schemaPerfilPassword = yup.object().shape({
 });
 
 export const userLoginSchema = yup.object().shape({
-  email: yup.string().typeError(emailMessage).matches(/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-.]+$/, { message: emailMessage }).required({ message: emailMessage }),
+  email: yup.string().typeError(emailMessage).matches(/^(?!\s)[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-.]+$/
+  , { message: emailMessage }).required({ message: emailMessage }),
   password: yup.string().typeError(passwordMessage).min(5, { message: passwordMessage }).max(10, { message: passwordMessage }).matches(/^\w/, { message: passwordMessage }).required({ message: passwordMessage })
 });
 

@@ -6,7 +6,7 @@ import HandleError from "../services/HandleError";
 import { mensajeSuccess } from "../utils/AlertMessages";
 import { useNavigate } from "react-router-dom";
 import image from "../assets/image/web-pages-and-QR-code-in-the-center.png"
-
+import { Link } from 'react-router-dom';
 
 
 const FormLogin = () => {
@@ -47,7 +47,7 @@ const FormLogin = () => {
           <div>
             <h2 className="text-2xl font-extrabold text-gray-900">Sign in</h2>
             <p className="mt-2 text-sm text-gray-600">Or&nbsp;
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">create an account</a>
+            <Link to="/register" className="font-medium text-indigo-600 hover:text-indigo-500">create an account </Link>
             </p>
           </div>
           <div className="mt-6">

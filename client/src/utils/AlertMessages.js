@@ -184,7 +184,7 @@ export const correctRegister = () =>{
 
   swal({
       title: "Registro exitoso",
-      text: "Bienvenido",
+      text: "Ya puedes iniciar sesión",
       button: "Aceptar",
       icon: "success"
     })
