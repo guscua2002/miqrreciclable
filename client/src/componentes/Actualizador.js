@@ -41,7 +41,8 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
     try {
       setGuardando(true);
       const data = await updateUserQR(idUser, infoQr); 
-      listUpdate.current = SortDate(data.data.result.qrcode);
+      const qrNotlocks = (data.data.result.qrcode).filter(item => item.bloqueado === false);
+      listUpdate.current = SortDate(qrNotlocks);
       handleUpdateList(listUpdate.current);
       setDescription1("");
       setDescription2("");
@@ -79,15 +80,15 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
         </div>
         <div className={styles.formfield}>
           <label>Descripción Uno: (opcional)</label>
-          <input onChange={(e) => setDescription1(e.target.value)} type="text" placeholder="ej: Nombre de la tienda" value={description1}/>
+          <input onChange={(e) => setDescription1(e.target.value)} type="text" placeholder="ej: Ciudad" value={description1}/>
         </div>
         <div className={styles.formfield}>
           <label >Descripción Dos: (opcional)</label>
-          <input onChange={(e) => setDescription2(e.target.value)} type="text" placeholder="ej: Campaña" value={description2} />
+          <input onChange={(e) => setDescription2(e.target.value)} type="text" placeholder="ej: Nombre del local" value={description2} />
         </div>
         <div className={styles.formfield}>
           <label >Descripción Tres: (opcional)</label>
-          <input onChange={(e) => setDescription3(e.target.value)} type="text" placeholder="ej: Comuna" value={description3}/>
+          <input onChange={(e) => setDescription3(e.target.value)} type="text" placeholder="ej: Tipo de campaña" value={description3}/>
         </div>
         <div className={styles.formfield}>
           <label >Descripción Cuatro: (opcional)</label>

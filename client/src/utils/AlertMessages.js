@@ -163,7 +163,7 @@ export const updateMessageView = () =>{
 export const deleteQrMessage = () =>{
 
   swal({
-      title: "QR eliminado exitosamente",
+      title: "QR bloqueado exitosamente",
       text: "éxito",
       button: "Aceptar",
       icon: "success"

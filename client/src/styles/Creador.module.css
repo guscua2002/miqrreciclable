@@ -27,6 +27,8 @@
   
   .formfield label {
     margin-bottom: 5px;
+    font-family: "Helvetica Neue", "Arial, sans-serif";
+    font-size: 17px;
   }
   
   .formfield input {
