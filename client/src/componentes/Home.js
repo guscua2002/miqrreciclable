@@ -18,6 +18,7 @@ import { Tooltip as ReactTooltip } from 'react-tooltip'
 import Swal from 'sweetalert2';
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css'; // Importa los estilos CSS de react-tippy
+import DesbloquearQR from "../vistas/DesbloquearQR";
 
 
 
@@ -31,6 +32,7 @@ function Home() {
 
 
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenUnlockQR, setIsOpenUnlockQR] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedDate2, setSelectedDate2] = useState(null);
     const [userQr, setUserQr] = useState("");
@@ -56,6 +58,10 @@ function Home() {
 
     const closeModalActualizador = () => {
         setIsOpenActualizador(false);
+    };
+
+    const closeModalDesbloquearQR = () => {
+        setIsOpenUnlockQR(false);
     };
 
 
@@ -334,6 +340,9 @@ function Home() {
                                     description2Temp={description2.current} description3Temp={description3.current} description4Temp={description4.current}
                                     datecreateTemp={datecreate.current} idqrTemp={idqr.current} qrstringTemp={qrstring.current} counterTemp={counter.current} closeModalActualizador={closeModalActualizador} handleUpdateList={handleUpdateList} />
                             )}
+                            {isOpenUnlockQR && (
+                                <DesbloquearQR idUserTemp={idUser.current} closeModalDesbloquearQR={closeModalDesbloquearQR} />
+                            )}
                         </div>
                     </div>
                 </div>
@@ -342,34 +351,34 @@ function Home() {
                         {/* Barra de menú */}
                         <a data-tooltip-id="my-tooltip" data-tooltip-content="Bloquea registros 
                         filtrados para poder actualizar. Nota: Si lo activas para cargar registros actualizados deberas presionar boton recargar todos">
-                        <label className="flex items-center space-x-1">
-                            <input
-                                type="checkbox"
-                                className="form-checkbox h-4 w-4 text-indigo-600"
-                            // Agrega aquí la lógica para manejar el estado del checkbox
-                            />
-                            <span className="text-gray-900 text-xs md:text-base">Bloquear celdas</span>
-                        </label>
+                            <label className="flex items-center space-x-1">
+                                <input
+                                    type="checkbox"
+                                    className="form-checkbox h-4 w-4 text-indigo-600"
+                                // Agrega aquí la lógica para manejar el estado del checkbox
+                                />
+                                <span className="text-gray-900 text-xs md:text-base">Bloquear celdas</span>
+                            </label>
                         </a>
                         <a data-tooltip-id="my-tooltip" data-tooltip-content="Recupera QR Bloqueados">
-                        <button
-                         // Reemplaza "handleRecuperarQR" con la función correspondiente
-                            className="py-2 px-3 md:px-4 bg-green-500 rounded text-xs md:text-base text-white"
-                        >
-                            Recuperar QR
-                        </button>
+                            <button
+                                onClick={() => setIsOpenUnlockQR(true)}
+                                className="py-2 px-3 md:px-4 bg-green-500 rounded text-xs md:text-base text-white"
+                            >
+                                Recuperar QR
+                            </button>
                         </a>
                         <a data-tooltip-id="my-tooltip" data-tooltip-content="Recarga registros y actualiza visitas">
-                        <button
-                            onClick={() => setUpdateView(true)} // Reemplaza "setUpdateView" con la función correspondiente
-                            className="py-2 px-3 md:px-4 bg-blue-500 rounded text-xs md:text-base text-white"
-                        >
-                            Recargar todos
-                        </button>
+                            <button
+                                onClick={() => setUpdateView(true)} // Reemplaza "setUpdateView" con la función correspondiente
+                                className="py-2 px-3 md:px-4 bg-blue-500 rounded text-xs md:text-base text-white"
+                            >
+                                Recargar todos
+                            </button>
                         </a>
                     </div>
-                 </div>               
-                 <div className="bg-gray-200 mx-2 md:mx-4 p-2 md:p-4 rounded shadow-md overflow-y-auto max-h-80 md:max-h-96">
+                </div>
+                <div className="bg-gray-200 mx-2 md:mx-4 p-2 md:p-4 rounded shadow-md overflow-y-auto max-h-80 md:max-h-96">
                     <table className="w-full bg-gray-200 text-xs md:text-base" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>
                         <thead>
                             <tr>
