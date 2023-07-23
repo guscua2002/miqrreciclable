@@ -92,7 +92,7 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
                                         <tr key={index}>
                                             <td className="border border-gray-400 px-2 py-2 w-1/6 text-center bg-blue-500 text-white">{qr.idqr}</td> {/* Ajustamos el ancho y centramos el contenido */}
                                             <td className="border border-gray-400 px-4 py-2 w-1/4 text-center">{moment(qr.datecreate).format('DD/MM/YYYY')}</td>
-                                            <td className="border border-gray-400 px-4 py-2 w-1/4 text-center">
+                                            <td className="border border-gray-400 px-4 py-2 w-1/4 text-center justify-center">
                                                 <Tooltip title={qr.urlredirect} position="top">
                                                     <Link to={qr.urlredirect} target="_blank"><img src={urlImage} alt="icono de un mundo con las letras http" /></Link>
                                                 </Tooltip>
