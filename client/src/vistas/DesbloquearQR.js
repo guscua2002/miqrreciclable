@@ -11,6 +11,7 @@ import moment from 'moment';
 import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
 import urlImage from "../assets/image/url.png"
+import unlockImage from "../assets/image/lock.png"
 
 
 const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
@@ -62,7 +63,7 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
             <div className="bg-white w-full h-80vh max-w-4xl rounded-lg p-10 overflow-hidden">
                 <div className="max-h-60vh overflow-y-auto"> {/* Ajustamos la altura máxima del contenido de la tabla */}
                     <div className="flex justify-between mb-4">
-                        <div className="w-1/4 font-QR">
+                        <div className="w-1/4" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>
                             <label>Busqueda por URL del QR:</label>
                         </div>
                         <div className="w-3/4 flex items-center">
@@ -92,12 +93,22 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
                                         <tr key={index}>
                                             <td className="border border-gray-400 px-2 py-2 w-1/6 text-center bg-blue-500 text-white">{qr.idqr}</td> {/* Ajustamos el ancho y centramos el contenido */}
                                             <td className="border border-gray-400 px-4 py-2 w-1/4 text-center">{moment(qr.datecreate).format('DD/MM/YYYY')}</td>
-                                            <td className="border border-gray-400 px-4 py-2 w-1/4 text-center justify-center">
-                                                <Tooltip title={qr.urlredirect} position="top">
-                                                    <Link to={qr.urlredirect} target="_blank"><img src={urlImage} alt="icono de un mundo con las letras http" /></Link>
-                                                </Tooltip>
+                                            <td className="border border-gray-400 px-4 py-2 w-1/4 text-center">
+                                                <div className="flex justify-center items-center"> {/* Alineamos horizontal y verticalmente */}
+                                                    <Tooltip title={qr.urlredirect} position="top">
+                                                        <Link to={qr.urlredirect} target="_blank">
+                                                            <img src={urlImage} alt="icono de un mundo con las letras http" />
+                                                        </Link>
+                                                    </Tooltip>
+                                                </div>
                                             </td>
-                                            <td className="border border-gray-400 px-4 py-2 w-1/4 text-center">Recuperar</td>
+                                            <td>
+                                                <div className="border border-gray-400 px-4 py-2 w-1/4 text-center"> {/* Alineamos horizontal y verticalmente */}
+                                                     <img src={unlockImage} 
+                                                     alt="icono de un candado abierto amarillo" 
+                                                     className="cursor-pointer"/>                                                                                                    
+                                                </div>
+                                            </td>
                                         </tr>
                                     ))}
                             </tbody>
