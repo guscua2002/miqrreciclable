@@ -40,7 +40,7 @@ export const searchErrorMessage = () =>{
 
 export const searchErrorMessageRecovery = () =>{
   swal({
-      title: "No hay resultados",
+      title: "No hay resultados o debe ingresar la URL válida del QR",
       text: "Sin éxito",
       button: "Aceptar",
       icon: "info"

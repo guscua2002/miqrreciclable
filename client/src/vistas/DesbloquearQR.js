@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 import urlImage from "../assets/image/url.png"
 import unlockImage from "../assets/image/lock.png"
 import { deleteUserQR } from "../services/services";
-import { searchSuccess, errorMessage, searchErrorMessageRecovery } from "../utils/AlertMessages";
+import { searchSuccess, searchErrorMessageRecovery } from "../utils/AlertMessages";
 
 
 const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR, handleUpdateList }) => {
@@ -56,10 +56,12 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR, handleUpdateList }
     }
 
     const buscarQR = () => {
-        console.log("si")
         if (buscador.length >= 54) {
             const idQr = buscador.substring(53, buscador.length)
-            const result = userQr.filter(item => item.idqr === idQr)
+            console.log(idQr)
+            console.log(userQr)
+            const result = userQr.filter(item => item.idqr === Number(idQr))
+            console.log(result)
             if (result.length > 0) {
                 setUserQr(result)
                 searchSuccess();
@@ -67,7 +69,7 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR, handleUpdateList }
                 searchErrorMessageRecovery();
             }
         } else {
-            errorMessage();
+            searchErrorMessageRecovery();
         }
     }
 
