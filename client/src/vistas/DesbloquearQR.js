@@ -1,35 +1,34 @@
 import React from "react";
 import { useRef, useState } from "react";
-import { correctMessageActualizado } from "../utils/AlertMessages";
+import { correctMessageDesbloqueado } from "../utils/AlertMessages";
 import HandleError from "../services/HandleError"
-import { ValidatorForm } from "../services/ValidatorForm";
-import { qrEsquemaUpdate } from "../utils/ValidaForm";
 import { SortDate } from "../utils/SortDate";
-import { updateUserQR, getOneUser } from "../services/services";
+import { getOneUser } from "../services/services";
 import { useEffect } from "react";
 import moment from 'moment';
 import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
 import urlImage from "../assets/image/url.png"
 import unlockImage from "../assets/image/lock.png"
+import { deleteUserQR } from "../services/services";
+import { searchSuccess, errorMessage, searchErrorMessageRecovery } from "../utils/AlertMessages";
 
 
-const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
+const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR, handleUpdateList }) => {
 
     let idUser = useRef(idUserTemp);
     let listUpdate = useRef("");
     const [userQr, setUserQr] = useState("");
     const [guardando, setGuardando] = useState(false);
+    const [buscador, setBuscador] = useState("");
 
     const search = async () => {
         try {
             const data = await getOneUser(idUser.current);
-            console.log(data)
             const qrNotlocks = (data.data.user.qrcode).filter(item => item.bloqueado === true);
             const result = SortDate(qrNotlocks);
             setUserQr(result);
         } catch (error) {
-            console.log(error)
             HandleError(error);
         }
     };
@@ -38,25 +37,40 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
         search();
     }, []);
 
-
-    const update = async () => {
+    const recuperar = async (idqr) => {
         try {
             setGuardando(true);
-            const data = await updateUserQR(idUser);
-            const qrNotlocks = (data.data.result.qrcode).filter(item => item.bloqueado === false);
-            listUpdate.current = SortDate(qrNotlocks);
-            correctMessageActualizado();
-            closeModalDesbloquearQR();
+            const data = await deleteUserQR(idUser.current, { idqr });
+            const qrLocks = (data.data.result.qrcode).filter(item => item.bloqueado === true);
+            const resultLocks = SortDate(qrLocks);
+            const qrNotLocks = (data.data.result.qrcode).filter(item => item.bloqueado === false);
+            listUpdate.current = SortDate(qrNotLocks);
+            handleUpdateList(listUpdate.current);
+            correctMessageDesbloqueado();
+            setUserQr(resultLocks);
         } catch (error) {
             HandleError(error);
         } finally {
             setGuardando(false);
         }
-    };
+    }
 
-    const validaForm = () => {
-        ValidatorForm(qrEsquemaUpdate, update);
-    };
+    const buscarQR = () => {
+        console.log("si")
+        if (buscador.length >= 54) {
+            const idQr = buscador.substring(53, buscador.length)
+            const result = userQr.filter(item => item.idqr === idQr)
+            if (result.length > 0) {
+                setUserQr(result)
+                searchSuccess();
+            } else {
+                searchErrorMessageRecovery();
+            }
+        } else {
+            errorMessage();
+        }
+    }
+
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
@@ -68,11 +82,13 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
                         </div>
                         <div className="w-3/4 flex items-center">
                             <input
+                                onChange={(e) => setBuscador(e.target.value)}
                                 type="text"
                                 className="border border-gray-400 rounded-lg px-4 py-2 w-full"
                                 placeholder="http://localhost:8000/api/qr/64a4c4341cd4303b5f66b1cd2"
+                                value={buscador}
                             />
-                            <button className="ml-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                            <button onClick={() => buscarQR()} className="ml-4 px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
                                 Buscar
                             </button>
                         </div>
@@ -84,16 +100,16 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
                                     <th className="border border-gray-400 px-2 py-2 w-1/12 text-center bg-blue-500 text-white">ID</th> {/* Ajustamos el ancho del campo ID y lo centramos */}
                                     <th className="border border-gray-400 px-4 py-2 w-1/4 text-center bg-indigo-600 text-white">Creación</th>
                                     <th className="border border-gray-400 px-4 py-2 w-1/4 text-center bg-indigo-600 text-white">Enlace</th>
-                                    <th className="border border-gray-400 px-4 py-2 w-1/4 text-center bg-indigo-600 text-white">Recuperar</th>
+                                    <th className="border border-gray-400 px-4 py-2 w-1/4 text-center bg-indigo-600 text-white">Desbloquear</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {userQr &&
                                     userQr.map((qr, index) => (
-                                        <tr key={index}>
-                                            <td className="border border-gray-400 px-2 py-2 w-1/6 text-center bg-blue-500 text-white">{qr.idqr}</td> {/* Ajustamos el ancho y centramos el contenido */}
-                                            <td className="border border-gray-400 px-4 py-2 w-1/4 text-center">{moment(qr.datecreate).format('DD/MM/YYYY')}</td>
-                                            <td className="border border-gray-400 px-4 py-2 w-1/4 text-center">
+                                        <tr key={index} className="hover:bg-gray-300 cursor-pointer">
+                                            <td className="border-b border-gray-400 px-2 py-2 w-1/6 text-center bg-blue-500 text-white">{qr.idqr}</td> {/* Ajustamos el ancho y centramos el contenido */}
+                                            <td className="border-b border-gray-400 px-4 py-2 w-1/4 text-center">{moment(qr.datecreate).format('DD/MM/YYYY')}</td>
+                                            <td className="border-b border-gray-400 px-4 py-2 w-1/4 text-center">
                                                 <div className="flex justify-center items-center"> {/* Alineamos horizontal y verticalmente */}
                                                     <Tooltip title={qr.urlredirect} position="top">
                                                         <Link to={qr.urlredirect} target="_blank">
@@ -102,11 +118,12 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
                                                     </Tooltip>
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div className="border border-gray-400 px-4 py-2 w-1/4 text-center"> {/* Alineamos horizontal y verticalmente */}
-                                                     <img src={unlockImage} 
-                                                     alt="icono de un candado abierto amarillo" 
-                                                     className="cursor-pointer"/>                                                                                                    
+                                            <td className="border-b border-gray-400" >
+                                                <div className="flex justify-center items-center"> {/* Alineamos horizontal y verticalmente */}
+                                                    <img src={unlockImage}
+                                                        onClick={() => recuperar(qr.idqr)}
+                                                        alt="icono de un candado abierto amarillo"
+                                                        className="cursor-pointer" />
                                                 </div>
                                             </td>
                                         </tr>
@@ -117,12 +134,16 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR }) => {
                 </div>
                 <div className="flex justify-center mt-6">
                     <button
-                        className="w-32 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                        className="w-32 px-6 py-2 bg-indigo-800 text-white rounded-lg hover:bg-indigo-600"
                         onClick={closeModalDesbloquearQR}
                     >
                         Cerrar
                     </button>
                 </div>
+                {guardando && (
+                    <label>Desbloqueando...</label>
+                )
+                }
             </div>
         </div>
     );

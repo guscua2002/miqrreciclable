@@ -9,11 +9,12 @@ import { userRegister } from "../services/services";
 import { userSchema } from "../utils/ValidaForm";
 import HandleError from "../services/HandleError";
 import image from "../assets/image/web-pages-and-QR-code-in-the-center.png"
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from "../assets/image/logo.svg"
 
 
 const FormRegister = () => {
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -59,7 +60,7 @@ const FormRegister = () => {
           <div>
             <h2 className="text-2xl font-extrabold text-gray-900">Register</h2>
             <p className="mt-2 text-sm text-gray-600">Or&nbsp;
-            <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">Sign in </Link>
+              <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">Sign in </Link>
             </p>
           </div>
           <div className="mt-6">
@@ -78,7 +79,7 @@ const FormRegister = () => {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     value={email}
                     placeholder="micomercio@gmail.com"
-                    onChange={(e) => setEmail(e.target.value)}                   
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
@@ -116,13 +117,14 @@ const FormRegister = () => {
                   />
                 </div>
               </div>
-              <div>
+              <div className="flex flex-col items-center">
                 <button
                   type="submit"
-                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mb-1" // Cambiar el valor de mb a 1
                 >
                   Register
                 </button>
+                <img src={logo} alt="dibujo flechas en ambos sentidos de colores" className="w-48 h-48" />
               </div>
             </form>
           </div>
@@ -130,6 +132,6 @@ const FormRegister = () => {
       </div>
     </div>
   );
-  };
+};
 
-  export default FormRegister;
+export default FormRegister;

@@ -276,7 +276,7 @@ function Home() {
                     <div className="ml-2 md:ml-6 font-sans text-xs md:text-base">
                         Tu solución inteligente para administrar y potenciar tus códigos QR.
                     </div>
-                    <button onClick={logout} className="ml-auto mr-2 md:mr-4 py-2 px-4 bg-red-500 rounded text-xs md:text-base">
+                    <button onClick={logout} className="ml-auto mr-2 md:mr-4 py-2 px-4 bg-indigo-800 hover:bg-indigo-600 rounded text-xs md:text-base" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>
                         Cerrar Sesión
                     </button>
                 </div>
@@ -341,7 +341,7 @@ function Home() {
                                     datecreateTemp={datecreate.current} idqrTemp={idqr.current} qrstringTemp={qrstring.current} counterTemp={counter.current} closeModalActualizador={closeModalActualizador} handleUpdateList={handleUpdateList} />
                             )}
                             {isOpenUnlockQR && (
-                                <DesbloquearQR idUserTemp={idUser.current} closeModalDesbloquearQR={closeModalDesbloquearQR} />
+                                <DesbloquearQR idUserTemp={idUser.current} closeModalDesbloquearQR={closeModalDesbloquearQR} handleUpdateList={handleUpdateList}/>
                             )}
                         </div>
                     </div>
@@ -397,7 +397,7 @@ function Home() {
                         </thead>
                         <tbody>
                             {userQr && userQr.map((qr, index) => (
-                                <tr key={index}>
+                                <tr key={index}  className="hover:bg-gray-300 cursor-pointer">
                                     <td className="py-2 px-4 border-b border-gray-300 bg-blue-500 text-white">{qr.idqr}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">{moment(qr.datecreate).format('DD/MM/YYYY')}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">

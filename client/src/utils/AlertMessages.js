@@ -38,6 +38,17 @@ export const searchErrorMessage = () =>{
     return;
 }   
 
+export const searchErrorMessageRecovery = () =>{
+  swal({
+      title: "No hay resultados",
+      text: "Sin éxito",
+      button: "Aceptar",
+      icon: "info"
+    })
+    
+    return;
+}   
+
 export const searchSuccess = () =>{
   swal({
       title: "Búsqueda exitosa",
@@ -164,6 +175,16 @@ export const deleteQrMessage = () =>{
 
   swal({
       title: "QR bloqueado exitosamente",
+      text: "éxito",
+      button: "Aceptar",
+      icon: "success"
+    })
+}
+
+export const correctMessageDesbloqueado = () =>{
+
+  swal({
+      title: "QR Desbloqueado exitosamente",
       text: "éxito",
       button: "Aceptar",
       icon: "success"

@@ -79,7 +79,6 @@ const Creador = ({ closeModal, idUser, handleUpdateList }) => {
 
   const update = async () => {
     try {
-      console.log(description1.length)
       setGuardando(true);
       const data = await updateUser(idUser, infoQr);
       const qrNotlocks = (data.data.result.qrcode).filter(item => item.bloqueado === false);
