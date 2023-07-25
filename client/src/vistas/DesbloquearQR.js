@@ -58,11 +58,8 @@ const DesbloquearQR = ({ idUserTemp, closeModalDesbloquearQR, handleUpdateList }
     const buscarQR = () => {
         if (buscador.length >= 54) {
             const idQr = buscador.substring(53, buscador.length)
-            console.log(idQr)
-            console.log(userQr)
             const result = userQr.filter(item => item.idqr === Number(idQr))
-            console.log(result)
-            if (result.length > 0) {
+              if (result.length > 0) {
                 setUserQr(result)
                 searchSuccess();
             } else {

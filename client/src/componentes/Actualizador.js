@@ -10,7 +10,7 @@ import { updateUserQR } from "../services/services";
 
 
 const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, description2Temp, description3Temp, description4Temp, 
-    datecreateTemp, idqrTemp, qrstringTemp, counterTemp, closeModalActualizador, handleUpdateList }) => {
+    datecreateTemp, idqrTemp, qrstringTemp, counterTemp, closeModalActualizador, handleUpdateList, isFijado }) => {
   
   const [urlredirectOriginal, setUrlRedirectOriginal] = useState(urlredirectTemp);
   const [urlredirect, setUrlRedirect] = useState(urlredirectTemp);
@@ -42,8 +42,10 @@ const Actualizador = ({ idUserTemp, urlredirectTemp, description1Temp, descripti
       setGuardando(true);
       const data = await updateUserQR(idUser, infoQr); 
       const qrNotlocks = (data.data.result.qrcode).filter(item => item.bloqueado === false);
-      listUpdate.current = SortDate(qrNotlocks);
-      handleUpdateList(listUpdate.current);
+      if(isFijado === false){
+        listUpdate.current = SortDate(qrNotlocks);
+        handleUpdateList(listUpdate.current);
+      }      
       setDescription1("");
       setDescription2("");
       setDescription3("");

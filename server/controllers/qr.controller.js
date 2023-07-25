@@ -64,12 +64,35 @@ module.exports.deleteAnExistingUserQR = async (req, res) => {
     const id = req.params.id;
     const idQr = req.body.idqr;
     try {
-        const result = await User.findOneAndUpdate(
+        const user = await User.findOne(
             { _id: id },
-            { $pull: { qrcode: { idqr: idQr } } },
-            { new: true }
         );
-        res.json({ result });
+        if (user) {
+            const qrSelected = user.qrcode;
+            const qrSelectedFinal = qrSelected.find(item => item.idqr === Number(idQr));
+            if (qrSelectedFinal) {
+                let bloqueado = false;
+                if (qrSelectedFinal.bloqueado === true) {
+                    bloqueado = false;
+                } else {
+                    bloqueado = true;
+                }
+                try {
+                    const result = await User.findOneAndUpdate(
+                        { _id: id, "qrcode.idqr": Number(idQr) },
+                        { $set: { "qrcode.$.bloqueado": bloqueado } },
+                        { new: true }
+                    );
+                    res.json({ result });
+                } catch (error) {
+                    res.status(400).json({ error });
+                }
+            } else {
+                res.status(404).json({ error: 'QR not found' });
+            }
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
     } catch (error) {
         res.status(400).json({ error });
     }
@@ -91,7 +114,7 @@ module.exports.findOneQR = async (req, res) => {
         if (user) {
             const qrSelected = user.qrcode;
             const qrSelectedFinal = qrSelected.find(item => item.idqr === Number(idQr));
-            if (qrSelectedFinal) {
+            if (qrSelectedFinal.bloqueado !== true) {
                 const contador = qrSelectedFinal.counter + 1;
                 try {
                     const result = await User.findOneAndUpdate(
@@ -104,7 +127,43 @@ module.exports.findOneQR = async (req, res) => {
                     res.status(400).json({ error });
                 }
             } else {
-                res.status(404).json({ error: 'QR not found' });
+                const errorHTML = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Oops! QR no encontrado</title>
+                    <style>
+                        body {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            background-color: #333;
+                            margin: 0;
+                        }
+                
+                        .container {
+                            text-align: center;
+                            color: white;
+                            padding: 20px;
+                            font-size: 24px;
+                        }
+                
+                        h1 {
+                            font-size: 36px;
+                            margin-bottom: 20px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="container">
+                        <h1>Oops! QR no encontrado</h1>
+                        <p>El QR que estás buscando no ha sido encontrado.</p>
+                    </div>
+                </body>
+                </html>
+                `;
+                res.status(404).send(errorHTML);
             }
         } else {
             res.status(404).json({ error: 'User not found' });
@@ -142,7 +201,7 @@ module.exports.login = async (req, res) => {
                             }, process.env.SECRET_KEY);
                             res
                                 .cookie("usertoken", userToken, process.env.SECRET_KEY, {
-                                    httpOnly: true, expires:new Date(Date.now() + 90000)
+                                    httpOnly: true, expires: new Date(Date.now() + 90000)
                                 })
                                 .json({ msg: "success!", user: user })
                         } else {

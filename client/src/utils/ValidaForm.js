@@ -30,7 +30,7 @@ export const userLoginSchema = yup.object().shape({
 
 
 export const qrEsquema = yup.object().shape({
-  urlredirect: yup.string().typeError(urelImageMessage).min(5, { message: urelImageMessage }).max(200, { message: urelImageMessage }).matches(/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/, { message: urelImageMessage }).required({ message: urelImageMessage }),
+  urlredirect: yup.string().typeError(urelImageMessage).min(5, { message: urelImageMessage }).max(1000, { message: urelImageMessage }).matches(/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/, { message: urelImageMessage }).required({ message: urelImageMessage }),
   qrstring: yup.string().typeError(noQrString).required({ message: noQrString }),                                                                                                                         
   description1: yup
     .string()
@@ -74,7 +74,7 @@ export const qrEsquema = yup.object().shape({
 })
 
 export const qrEsquemaUpdate = yup.object().shape({
-  urlredirect: yup.string().typeError(urelImageMessage).min(5, { message: urelImageMessage }).max(200, { message: urelImageMessage }).matches(/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/, { message: urelImageMessage }).required({ message: urelImageMessage }),
+  urlredirect: yup.string().typeError(urelImageMessage).min(5, { message: urelImageMessage }).max(1000, { message: urelImageMessage }).matches(/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/, { message: urelImageMessage }).required({ message: urelImageMessage }),
   description1: yup
     .string()
     .typeError(descriptionMessage)

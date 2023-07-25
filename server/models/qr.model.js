@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: [true, 'Correo ya se encuentra registrado'],
     required: [true, 'Por favor ingrese un correo válido'],
-    match: [/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-.]+$/, 'Por favor ingrese un correo válido'],
+    match: [/^(?!\s)[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z-.]+$/, 'Por favor ingrese un correo válido'],
   },
   password: {
     type: String,
@@ -21,23 +21,38 @@ const UserSchema = new mongoose.Schema({
     },
     urlredirect: {
       type: String,
-      required: true
+      required: [true, 'Debes ingresar una Url válida'],
+      minlength: [5,'Debes ingresar una Url válida'],
+      maxlength: [1000,'Debes ingresar una Url válida'],
+      match: [/^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/,'Debes ingresar una Url válida'],           
     },
     qrstring: {
       type: String,
       required: true
     },
     description1: {
-      type: String
+      type: String,
+      minlength: [3,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      maxlength: [100,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      match: [/^(?!\s)[a-zA-Z0-9-\s]{3,100}(?![%&()/#"'!*?|])$/,'Descripción debe tener entre 3 y 100 caracteres comunes, puedes usar el guión medio también'],
     },
     description2: {
-      type: String
+      type: String,
+      minlength: [3,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      maxlength: [100,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      match: [/^(?!\s)[a-zA-Z0-9-\s]{3,100}(?![%&()/#"'!*?|])$/,'Descripción debe tener entre 3 y 100 caracteres comunes, puedes usar el guión medio también'],
     },
     description3: {
-      type: String
+      type: String,
+      minlength: [3,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      maxlength: [100,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      match: [/^(?!\s)[a-zA-Z0-9-\s]{3,100}(?![%&()/#"'!*?|])$/,'Descripción debe tener entre 3 y 100 caracteres comunes, puedes usar el guión medio también'],
     },
     description4: {
-      type: String
+      type: String,
+      minlength: [3,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      maxlength: [100,'Descripción debe tener entre 3 y 100 caracteres comunes'],
+      match: [/^(?!\s)[a-zA-Z0-9-\s]{3,100}(?![%&()/#"'!*?|])$/,'Descripción debe tener entre 3 y 100 caracteres comunes, puedes usar el guión medio también'],
     },
     counter: {
       type: Number,
@@ -46,6 +61,10 @@ const UserSchema = new mongoose.Schema({
     datecreate: {
       type: Date,
       default: Date.now
+    },
+    bloqueado: {
+      type: Boolean,
+      default: false
     }
   }]
 }, { timestamps: true }

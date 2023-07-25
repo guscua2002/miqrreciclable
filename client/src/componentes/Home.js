@@ -39,6 +39,8 @@ function Home() {
     const [updateView, setUpdateView] = useState(false);
     const [isOpenActualizador, setIsOpenActualizador] = useState(false);
     const [searchDescription, setSearchDescription] = useState("");
+    const [isFijado, setIsFijado] = useState(false)
+    const [checkFijar, setCheckFijar] = useState(false);
     let urlredirect = useRef("");
     let description1 = useRef("");
     let description2 = useRef("");
@@ -72,6 +74,7 @@ function Home() {
             const result = SortDate(qrNotlocks);
             setUserQr(result);
             if (updateView === true) {
+                setCheckFijar(false);
                 updateMessageView();
                 actualizarVariables();
             }
@@ -129,7 +132,8 @@ function Home() {
 
     const handleUpdateList = (listUpdate) => {
         setUserQr(listUpdate);
-        actualizarVariables();
+        setCheckFijar(false);
+        actualizarVariables();        
     };
 
     const updateModalContent = (url, descr1, descr2, descr3, descr4, date, idq, stringQR, counterTemp) => {
@@ -154,9 +158,12 @@ function Home() {
 
         try {
             const data = await deleteUserQR(idUser.current, { idqr: idqr.current });
-            const qrNotlocks = (data.data.result.qrcode).filter(item => item.bloqueado === false);
-            const result = SortDate(qrNotlocks);
-            setUserQr(result);
+            if (isFijado === false) {
+                const qrNotlocks = (data.data.result.qrcode).filter(item => item.bloqueado === false);
+                const result = SortDate(qrNotlocks);
+                setUserQr(result);
+                setCheckFijar(false);
+            }
             deleteQrMessage();
             actualizarVariables();
         } catch (error) {
@@ -241,6 +248,7 @@ function Home() {
         if (filter.current.length > 0) {
             setUserQr(SortDate(filter.current));
             searchSuccess();
+            setCheckFijar(true);
             filter.current = "";
         } else {
             searchErrorMessage();
@@ -327,10 +335,12 @@ function Home() {
                                 </a>
                             </div>
                             <a data-tooltip-id="my-tooltip" data-tooltip-content="Aplica el filtrado por fecha, por enlace o descripción">
-                                <button onClick={() => filtrar()} className="ml-2 py-2 px-2 md:px-4 bg-blue-500 rounded text-xs md:text-base text-white" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>Filtrar</button>
+                                {isFijado ? (<button className="ml-2 py-2 px-2 md:px-4 bg-gray-500 cursor-not-allowed rounded text-xs md:text-base text-white" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>Filtrar</button>
+                                ) : (<button onClick={() => filtrar()} className="ml-2 py-2 px-2 md:px-4 bg-blue-500 rounded text-xs md:text-base text-white" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>Filtrar</button>)}
                             </a>
                             <a data-tooltip-id="my-tooltip" data-tooltip-content="Carga formulario para crear codigo QR">
-                                <button onClick={() => setIsOpen(true)} className="ml-2 py-2 px-2 md:px-3 bg-green-500 rounded text-xs md:text-base text-white" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>Crear QR</button>
+                                {isFijado ? (<button className="ml-2 py-2 px-2 md:px-3 bg-gray-500 cursor-not-allowed rounded text-xs md:text-base text-white" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>Crear QR</button>
+                                ) : (<button onClick={() => setIsOpen(true)} className="ml-2 py-2 px-2 md:px-3 bg-green-500 rounded text-xs md:text-base text-white" style={{ fontFamily: 'Helvetica Neue, Arial, sans-serif', fontSize: '14px' }}>Crear QR</button>)}
                             </a>
                             {isOpen && (
                                 <Creador closeModal={closeModal} idUser={idUser.current} handleUpdateList={handleUpdateList} />
@@ -338,10 +348,10 @@ function Home() {
                             {isOpenActualizador && (
                                 <Actualizador idUserTemp={idUser.current} urlredirectTemp={urlredirect.current} description1Temp={description1.current}
                                     description2Temp={description2.current} description3Temp={description3.current} description4Temp={description4.current}
-                                    datecreateTemp={datecreate.current} idqrTemp={idqr.current} qrstringTemp={qrstring.current} counterTemp={counter.current} closeModalActualizador={closeModalActualizador} handleUpdateList={handleUpdateList} />
+                                    datecreateTemp={datecreate.current} idqrTemp={idqr.current} qrstringTemp={qrstring.current} counterTemp={counter.current} closeModalActualizador={closeModalActualizador} handleUpdateList={handleUpdateList} isFijado={isFijado} />
                             )}
                             {isOpenUnlockQR && (
-                                <DesbloquearQR idUserTemp={idUser.current} closeModalDesbloquearQR={closeModalDesbloquearQR} handleUpdateList={handleUpdateList}/>
+                                <DesbloquearQR idUserTemp={idUser.current} closeModalDesbloquearQR={closeModalDesbloquearQR} handleUpdateList={handleUpdateList} />
                             )}
                         </div>
                     </div>
@@ -349,32 +359,49 @@ function Home() {
                 <div className="flex justify-end my-2 md:my-4 mr-2 md:mr-8">
                     <div className="flex space-x-2">
                         {/* Barra de menú */}
-                        <a data-tooltip-id="my-tooltip" data-tooltip-content="Bloquea registros 
-                        filtrados para poder actualizar. Nota: Si lo activas para cargar registros actualizados deberas presionar boton recargar todos">
+                        <a data-tooltip-id="my-tooltip" data-tooltip-content="Si fijas y editas o bloqueas QR, deberás Desfijar y Recargar todos, para ver los cambios">
                             <label className="flex items-center space-x-1">
-                                <input
+                                {checkFijar ? (<input
                                     type="checkbox"
                                     className="form-checkbox h-4 w-4 text-indigo-600"
+                                    onChange={(e) => setIsFijado(e.target.checked)}
                                 // Agrega aquí la lógica para manejar el estado del checkbox
-                                />
-                                <span className="text-gray-900 text-xs md:text-base">Bloquear celdas</span>
+                                />) : (
+                                    <input
+                                        type="checkbox"
+                                        className="form-checkbox h-4 w-4 text-indigo-600"
+                                        onChange={(e) => setIsFijado(e.target.checked)}
+                                        disabled
+                                    // Agrega aquí la lógica para manejar el estado del checkbox
+                                    />)}
+                                <span className="text-gray-900 text-xs md:text-base">Fijar celdas Filtradas (opcional)</span>
                             </label>
                         </a>
                         <a data-tooltip-id="my-tooltip" data-tooltip-content="Recupera QR Bloqueados">
-                            <button
-                                onClick={() => setIsOpenUnlockQR(true)}
-                                className="py-2 px-3 md:px-4 bg-green-500 rounded text-xs md:text-base text-white"
+                            {isFijado ? (<button
+                                className="py-2 px-3 md:px-4 bg-gray-500 cursor-not-allowed rounded text-xs md:text-base text-white"
                             >
                                 Recuperar QR
-                            </button>
+                            </button>) : (
+                                <button
+                                    onClick={() => setIsOpenUnlockQR(true)}
+                                    className="py-2 px-3 md:px-4 bg-green-500 rounded text-xs md:text-base text-white"
+                                >
+                                    Recuperar QR
+                                </button>)}
                         </a>
                         <a data-tooltip-id="my-tooltip" data-tooltip-content="Recarga registros y actualiza visitas">
-                            <button
-                                onClick={() => setUpdateView(true)} // Reemplaza "setUpdateView" con la función correspondiente
-                                className="py-2 px-3 md:px-4 bg-blue-500 rounded text-xs md:text-base text-white"
+                            {isFijado ? (<button
+                                className="py-2 px-3 md:px-4 bg-gray-500 cursor-not-allowed rounded text-xs md:text-base text-white"
                             >
                                 Recargar todos
-                            </button>
+                            </button>) : (
+                                <button
+                                    onClick={() => setUpdateView(true)} // Reemplaza "setUpdateView" con la función correspondiente
+                                    className="py-2 px-3 md:px-4 bg-blue-500 rounded text-xs md:text-base text-white"
+                                >
+                                    Recargar todos
+                                </button>)}
                         </a>
                     </div>
                 </div>
@@ -397,7 +424,7 @@ function Home() {
                         </thead>
                         <tbody>
                             {userQr && userQr.map((qr, index) => (
-                                <tr key={index}  className="hover:bg-gray-300 cursor-pointer">
+                                <tr key={index} className="hover:bg-gray-300 cursor-pointer">
                                     <td className="py-2 px-4 border-b border-gray-300 bg-blue-500 text-white">{qr.idqr}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">{moment(qr.datecreate).format('DD/MM/YYYY')}</td>
                                     <td className="py-2 px-4 border-b border-gray-300">
