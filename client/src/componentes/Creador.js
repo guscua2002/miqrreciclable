@@ -12,7 +12,7 @@ import { SortDate } from "../utils/SortDate";
 
 const Creador = ({ closeModal, idUser, handleUpdateList }) => {
 
-  const urlApi = useRef("http://localhost:8000/api/qr/");
+  const urlApi = useRef("http://18.224.62.70/api/qr/");
 
   let idNewQr = useRef(0);
   let url = useRef("");
